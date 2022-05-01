@@ -13,30 +13,26 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 class DepthCalculator {
-    calculateDepth(a) {
 
-        let maxDepth = 0;
-        let currentLevel = 0;
+    maxDepth = 0;
+    currentLevel = 0;
+    calculateDepth(arr, isStart = false) {
 
-        const max = (arr, isInternalRun = false) => {
-            if (!isInternalRun) {
-                maxDepth = 0;
-                currentLevel = 0;
-            }
-            if (arr instanceof Array) {
-                currentLevel += 1;
-                arr.forEach(x => {
-                    if (x instanceof Array) {
-                        max(x, true);
-                    }
-                });
-                if (currentLevel > maxDepth) maxDepth = currentLevel;
-                currentLevel -= 1;
-            }
-            return maxDepth;
+        if (!isStart) {
+            this.maxDepth = 0;
+            this.currentLevel = 0;
         }
-
-        return max(a);
+        if (arr instanceof Array) {
+            this.currentLevel += 1;
+            arr.forEach(x => {
+                if (x instanceof Array) {
+                    this.calculateDepth(x, true);
+                }
+            });
+            if (this.currentLevel > this.maxDepth) this.maxDepth = this.currentLevel;
+            this.currentLevel -= 1;
+        }
+        return this.maxDepth;
     };
 }
 

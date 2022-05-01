@@ -18,18 +18,18 @@ function transform(arr) {
     if (arr.length === 0) return [];
 
     let result = [];
-    const discardedIdx = [];
+    const indexForRemove = [];
 
     for (let i = 0; i < arr.length; ++i) {
 
         switch (arr[i]) {
             case '--discard-next':
-                discardedIdx.push(++i);
+                indexForRemove.push(++i);
                 break;
             case '--discard-prev':
-                if (result.length > 0 && discardedIdx.indexOf(i - 1) === -1) {
+                if (result.length > 0 && indexForRemove.indexOf(i - 1) === -1) {
                     result = result.slice(0, result.length - 1);
-                    discardedIdx.push(i - 1);
+                    indexForRemove.push(i - 1);
                 }
                 break;
             case '--double-next':
@@ -39,7 +39,7 @@ function transform(arr) {
                 }
                 break;
             case '--double-prev':
-                if (i > 0 && discardedIdx.indexOf(i - 1) === -1) { result.push(arr[i - 1]); }
+                if (i > 0 && indexForRemove.indexOf(i - 1) === -1) { result.push(arr[i - 1]); }
                 break;
             default:
                 result.push(arr[i]);
