@@ -24,12 +24,12 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function getDNSStats(domains) {
     let result = {};
-    let arr1 = [];
+    let arr = [];
     for (let i = 0; i < domains.length; i++) {
-        arr1 = domains[i].split('.')
+        arr = domains[i].split('.')
         let str = '';
-        for (let j = arr1.length - 1; j >= 0; j--) {
-            str += `.${arr1[j]}`;
+        for (let j = arr.length - 1; j >= 0; j--) {
+            str += `.${arr[j]}`;
             if (isNaN(result[str])) {
                 result[str] = 1;
             } else
